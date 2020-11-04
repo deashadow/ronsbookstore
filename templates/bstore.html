@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+    <head>
+      <title>Mystery Bookstore</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="css/styles.css" />
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    </head>
+    <body>
+{% if request.user.is_authenticated %}
+    <h4>
+        Welcome, 
+        {% if request.user.first_name %} 
+            {{ request.user.first_name }}
+        {% else %}
+            {{ request.user.username}}
+        {% endif %}!<br><br>
+        <a href="{% url 'auth_logout' %}">Logout</a>
+    </h4>
+{% else %}
+    <h4>
+        Welcome, mysterious person! 
+        Would you like to <a href="{% url 'auth_login' %}">Login</a>?
+    </h4>
+{% endif %}<br><br>
+<h2>The Mysterty Bookstore currently has {{ count }} book(s) in stock. <br>User location: {{ request.session.location }}</h2>
+</body>
+</html>
