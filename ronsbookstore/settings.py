@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'social.apps.django_app.default',
+    'social_django',
     'store',
 ]
 
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'ronsbookstore.urls'
@@ -65,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -72,6 +77,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ronsbookstore.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -128,14 +137,19 @@ REGISTRATION_AUTO_LOGIN = True
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/store/'  # where to redirect the user upon login 
+LOGIN_REDIRECT_URL = '/bstore'  # where to redirect the user upon login 
 
 # Email settings
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "ronaldrendessy@gmail.com"
-EMAIL_HOST_PASSWORD = "Renee2012"
+EMAIL_HOST_USER = "deashadow@gmail.com"
+EMAIL_HOST_PASSWORD = "3Managua"
 EMAIL_PORT = 587   # you have to use SSL or TLS
 EMAIL_USE_TLS = True 
 DEFAULT_FROM_EMAIL = "books@mysterybooks.com"
+REGISTRATION_EMAIL_HTML = False
+
+#Social Auth - Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '703112040299090'
+SOCIAL_AUTH_FACEBOOK_SECRET = '0c4ea92ddc021b285fe338a1c1d4b9bf'
